@@ -1,66 +1,171 @@
 
-<!-- Inline-only legend for Experience Builder Text widget -->
-<div role="group" aria-labelledby="legend-title"
-     style="background: rgba(20,22,27,0.75);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            color: #e6e8ed;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.25);
-            padding: 14px 16px;
-            max-width: 340px;
-            width: max-content;
-            font: 500 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans', sans-serif;">
-
-  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-    <span id="legend-title" style="font-weight:700; letter-spacing:0.2px; color:#e6e8ed; padding-bottom:6px; position:relative;">
-      Current Status
-      <!-- Neon underline accent -->
-      <span style="content:''; position:absolute; left:0; bottom:0; width:46%; height:2px; border-radius:2px;
-                   background: linear-gradient(90deg, #00d1ff, transparent);
-                   filter: drop-shadow(0 0 4px rgba(0,209,255,0.5)); display:block;"></span>
-    </span>
+<!-- Legend: Current Status -->
+<div class="legend-container" role="group" aria-labelledby="legend-title">
+  <div class="legend-header">
+    <span id="legend-title">Current Status</span>
   </div>
 
-  <ul style="list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; gap:6px;">
-    <!-- Animated pulse GIF: Ongoing -->
-    <li style="display:grid; grid-template-columns:28px auto; align-items:center; gap:10px; padding:6px 8px; border-radius:10px;">
-      <span style="width:28px; height:28px; display:grid; place-items:center;">
-        pulse_red_gold_vivid (1).gif
-      </span>
-      <span style="color:#e6e8ed; text-shadow:0 1px 0 rgba(0,0,0,0.35);">Ongoing</span>
+  <ul class="legend-list">
+    <!-- Animated pulse GIF -->
+    <li class="legend-item">
+      <span class="legend-swatch">
+        <!-- Use your hosted GIF path: local, CDN, or GitHub raw -->
+        <img src="pulse_red_gold_vivid (1).gif" alt="Animated pulsing status iconl">Ongoing</span>
     </li>
 
-    <!-- #f2a922: Ongoing Shipwreck -->
-    <li style="display:grid; grid-template-columns:28px auto; align-items:center; gap:10px; padding:6px 8px; border-radius:10px;">
-      <span style="width:28px; height:28px; display:grid; place-items:center;">
-        <span style="width:18px; height:18px; border-radius:50%; display:inline-block; background:#f2a922;
-                     box-shadow: 0 0 0 2px rgba(255,255,255,0.12),
-                                 inset 0 2px 4px rgba(255,255,255,0.18),
-                                 inset 0 -3px 6px rgba(0,0,0,0.35);"></span>
+    <!-- Circular dot: #f2a922 -->
+    <li class="legend-item">
+      <span class="legend-swatch">
+        <span class="dot" style="--dot-color: #f2a922;"></span>
       </span>
-      <span style="color:#e6e8ed; text-shadow:0 1px 0 rgba(0,0,0,0.35);">Ongoing Shipwreck</span>
+      <span class="legend-label">Ongoing Shipwreck</span>
     </li>
 
-    <!-- #52f27a: No Further Action -->
-    <li style="display:grid; grid-template-columns:28px auto; align-items:center; gap:10px; padding:6px 8px; border-radius:10px;">
-      <span style="width:28px; height:28px; display:grid; place-items:center;">
-        <span style="width:18px; height:18px; border-radius:50%; display:inline-block; background:#52f27a;
-                     box-shadow: 0 0 0 2px rgba(255,255,255,0.12),
-                                 inset 0 2px 4px rgba(255,255,255,0.18),
-                                 inset 0 -3px 6px rgba(0,0,0,0.35);"></span>
+    <!-- Circular dot: #52f27a -->
+    <li class="legend-item">
+      <span class="legend-swatch">
+        <span class="dot" style="--dot-color: #52f27a;"></span>
       </span>
-      <span style="color:#e6e8ed; text-shadow:0 1px 0 rgba(0,0,0,0.35);">No Further Action</span>
+      <span class="legend-label">No Further Action</span>
     </li>
 
-    <!-- #bd39bf: Recovery -->
-    <li style="display:grid; grid-template-columns:28px auto; align-items:center; gap:10px; padding:6px 8px; border-radius:10px;">
-      <span style="width:28px; height:28px; display:grid; place-items:center;">
-        <span style="width:18px; height:18px; border-radius:50%; display:inline-block; background:#bd39bf;
-                     box-shadow: 0 0 0 2px rgba(255,255,255,0.12),
-                                 inset 0 2px 4px rgba(255,255,255,0.18),
-                                 inset 0 -3px 6px rgba(0,0,0,0.35);"></span>
+    <!-- Circular dot: #bd39bf -->
+    <li class="legend-item">
+      <span class="legend-swatch">
+        <span class="dot" style="--dot-color: #bd39bf;"></span>
       </span>
-      <span style="color:#e6e8ed; text-shadow:0 1px 0 rgba(0,0,0,0.35);">Recovery</span>
+      <span class="legend-label">Recovery</span>
     </li>
   </ul>
 </div>
+
+<style>
+  /* ---- Dark "glass" legend theme ---- */
+  .legend-container {
+    --bg: rgba(20, 22, 27, 0.75);                 /* semi-transparent dark */
+    --border: rgba(255, 255, 255, 0.10);          /* soft border */
+    --text: #e6e8ed;                              /* light text on dark */
+    --muted: #a9afbf;                             /* secondary text */
+    --highlight: #00d1ff;                         /* accent for title underline */
+    --radius: 14px;
+    --shadow: 0 12px 28px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(10px) saturate(110%);    /* glassmorphism */
+    -webkit-backdrop-filter: blur(10px) saturate(110%);
+
+    background: linear-gradient(135deg, rgba(24, 26, 31, 0.78), rgba(16, 18, 22, 0.72)) var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    box-shadow: var(--shadow);
+
+    padding: 14px 16px;
+    max-width: 340px;
+    width: max-content;
+    font: 500 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
+  }
+
+  .legend-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .legend-header #legend-title {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: var(--text);
+    position: relative;
+    padding-bottom: 6px;
+  }
+
+  /* Subtle neon underline accent */
+  .legend-header #legend-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 46%;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--highlight), transparent);
+    filter: drop-shadow(0 0 4px rgba(0, 209, 255, 0.5));
+  }
+
+  .legend-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .legend-item {
+    display: grid;
+    grid-template-columns: 28px auto;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    transition: background 160ms ease, transform 160ms ease;
+  }
+
+  /* Hover affordance (kept subtle for dashboard use) */
+  .legend-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+  }
+
+  .legend-swatch {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+  }
+
+  /* For the GIF swatch */
+  .legend-swatch img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    border-radius: 50%;
+    /* optional ring if the GIF lacks one; comment out if not needed */
+    /* box-shadow: 0 0 0 2px #f2d022; */
+  }
+
+  /* Generic circular dot swatch */
+  .dot {
+    --size: 18px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: inline-block;
+    background: var(--dot-color, #888);
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.12),        /* soft outer ring */
+      inset 0 2px 4px rgba(255, 255, 255, 0.18),  /* highlight */
+      inset 0 -3px 6px rgba(0, 0, 0, 0.35);       /* depth */
+  }
+
+  .legend-label {
+    color: var(--text);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  /* Optional: small print note style (if you add any) */
+  .legend-note {
+    margin-top: 8px;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  /* Responsive tweak for tight sidebars */
+  @media (max-width: 420px) {
+    .legend-container {
+      max-width: 100%;
+    }
+  }
+</
