@@ -6,13 +6,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Legend — Current Status</title>
   <style>
+    /* Theme & sizing variables for quick tweaks */
     :root {
       --bg: rgba(20,22,27,0.75);
       --border: rgba(255,255,255,0.10);
       --text: #e6e8ed;
       --muted: #a9afbf;
       --highlight: #00d1ff;
+
+      /* Swatch sizing */
+      --swatch-size: 28px;   /* container cell size */
+      --dot-size: 18px;      /* static chips & pulse core size */
+
+      /* Pulse colors (match your GIF/palette) */
+      --pulse-core: #ff2a2a;     /* red center */
+      --pulse-ring: #f2a922;     /* gold ring (same as your Ongoing Shipwreck color) */
+      --pulse-ring-soft: rgba(242, 169, 34, 0.60); /* softer second ring */
     }
+
+    /* Page setup to showcase the legend; iframe will just show the legend area */
     body {
       margin: 0;
       min-height: 100vh;
@@ -22,74 +34,121 @@
       font: 500 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
       color: var(--text);
     }
+
     .legend-container {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 12px 28px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.25);
       padding: 14px 16px;
-      max-width: 340px;
+      max-width: 360px;
       width: max-content;
     }
-    .legend-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-    #legend-title { font-weight:700; letter-spacing:.2px; position:relative; padding-bottom:6px; }
+
+    .legend-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+    }
+    #legend-title { font-weight: 700; letter-spacing: .2px; position: relative; padding-bottom: 6px; }
     #legend-title::after {
-      content:""; position:absolute; left:0; bottom:0; width:46%; height:2px; border-radius:2px;
+      content: ""; position: absolute; left: 0; bottom: 0; width: 46%; height: 2px; border-radius: 2px;
       background: linear-gradient(90deg, var(--highlight), transparent);
       filter: drop-shadow(0 0 4px rgba(0,209,255,.5));
     }
-    .legend-list { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
-    .legend-item { display:grid; grid-template-columns:28px auto; align-items:center; gap:10px; padding:6px 8px; border-radius:10px; }
+
+    .legend-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+    .legend-item {
+      display: grid; grid-template-columns: var(--swatch-size) auto;
+      align-items: center; gap: 10px; padding: 6px 8px; border-radius: 10px;
+    }
+
+    /* Swatch cell: fixed box, clips any overflow */
     .legend-swatch {
-      width: 28px; height: 28px;
+      width: var(--swatch-size); height: var(--swatch-size);
       display: grid; place-items: center;
-      overflow: hidden; /* clip anything larger than the box */
-      border-radius: 50%; /* optional: keep round clip */
+      overflow: hidden; /* prevents anything from spilling out */
     }
-    /* 🔧 Constrain the GIF to small size */
-    .legend-swatch img {
-      width: 18px;  /* set to 20–22px if you want it slightly larger */
-      height: 18px;
-      display: block;
-      border-radius: 50%;
-      object-fit: contain;
-      image-rendering: auto;
-      transform-origin: center;
-    }
+
+    /* Static circular chips */
     .dot {
-      width: 18px; height: 18px; border-radius: 50%; display:inline-block;
+      width: var(--dot-size); height: var(--dot-size); border-radius: 50%; display: inline-block;
       box-shadow: 0 0 0 2px rgba(255,255,255,.12), inset 0 2px 4px rgba(255,255,255,.18), inset 0 -3px 6px rgba(0,0,0,.35);
     }
+
+    /* ---------- CSS-only pulse (red core + gold ring) ---------- */
+    .pulse {
+      position: relative; width: var(--dot-size); height: var(--dot-size);
+    }
+
+    /* Red center */
+    .pulse .core {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--pulse-core);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.18), inset 0 -3px 6px rgba(0,0,0,0.35);
+    }
+
+    /* Two ring ripples */
+    .pulse .ring, .pulse .ring2 {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--pulse-ring);
+      animation: ripple 1.6s ease-out infinite;
+      transform-origin: center;
+    }
+    .pulse .ring2 {
+      box-shadow: 0 0 0 2px var(--pulse-ring-soft);
+      animation-delay: .4s;
+    }
+
+    /* Keyframes: grow and fade */
+    @keyframes ripple {
+      0%   { transform: scale(1);   opacity: 0.9; }
+      60%  { transform: scale(1.8); opacity: 0.15; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* Respect user's reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .pulse .ring, .pulse .ring2 { animation: none; opacity: 0.0; }
+    }
+
     .legend-label { text-shadow: 0 1px 0 rgba(0,0,0,.35); }
   </style>
 </head>
 <body>
   <div class="legend-container" role="group" aria-labelledby="legend-title">
     <div class="legend-header"><span id="legend-title">Current Status</span></div>
+
     <ul class="legend-list">
-      <!-- GIF swatch constrained to 18×18 inside a 28×28 cell -->
+      <!-- CSS pulse: red core + gold ring; fits inside a 28×28 swatch -->
       <li class="legend-item">
         <span class="legend-swatch">
-          ./pulse_red_gold_vivid.gif
+          <span class="pulse">
+            <span class="core"></span>
+            <span class="ring"></span>
+            <span class="ring2"></span>
+          </span>
         </span>
         <span class="legend-label">Ongoing</span>
       </li>
 
+      <!-- #f2a922: Ongoing Shipwreck -->
       <li class="legend-item">
         <span class="legend-swatch"><span class="dot" style="background:#f2a922;"></span></span>
         <span class="legend-label">Ongoing Shipwreck</span>
       </li>
 
+      <!-- #52f27a: No Further Action -->
       <li class="legend-item">
         <span class="legend-swatch"><span class="dot" style="background:#52f27a;"></span></span>
         <span class="legend-label">No Further Action</span>
       </li>
 
+      <!-- #bd39bf: Recovery -->
       <li class="legend-item">
         <span class="legend-swatch"><span class="dot" style="background:#bd39bf;"></span></span>
         <span class="legend-label">Recovery</span>
       </li>
     </ul>
   </div>
-</body>
-</
+</</body>
